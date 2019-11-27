@@ -1,0 +1,14 @@
+mat-card{
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+
+
+mat-card-header{
+    display: inline-block;
+}
+mat-card-actions{
+    display: inline-block;
+    right:right;
+}
+}

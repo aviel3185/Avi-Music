@@ -1,0 +1,12 @@
+<mat-card>
+    <button mat-button (click)="play()">
+        <mat-icon color="primary">{{playing?'pause':'play_arrow'}}</mat-icon>
+    </button>
+    <mat-card-header>{{title}}</mat-card-header>
+    <mat-card-actions>
+        <button mat-button class="like" (click)="like()">
+            <mat-icon color="{{isFavorite?'accent':'primary'}}">favorite</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>
+<mat-divider></mat-divider>

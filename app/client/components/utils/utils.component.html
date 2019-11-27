@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="header">
+        <img src="../../../assets/avi-music.icon.svg">
+        <label>Avi Music</label>
+    </div>
+    <mat-form-field class="search" color="primary">
+        <input matInput placeholder="Search" autocomplete="off" color="primary" [(ngModel)]="searchValue">
+        <button mat-button *ngIf="searchValue!=''" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+            <mat-icon color="accent">close</mat-icon>
+        </button>
+    </mat-form-field>
+
+</div>

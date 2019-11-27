@@ -1,0 +1,20 @@
+<div class="container" *ngIf="true">
+  <h3 color="primary">{{title}}</h3>
+  <label>{{currentTime/60}}:{{currentTime%60}}</label>
+  <mat-slider [(ngModel)]="currentTime"></mat-slider>
+  <label>{{duration}}</label>
+  <div class="controls">
+    <button mat-button>
+      <mat-icon color="primary">fast_rewind</mat-icon>
+    </button>
+    <button mat-button (click)="state()">
+      <mat-icon color="primary">{{play?"pause":"play_arrow"}}</mat-icon>
+    </button>
+    <button mat-button>
+      <mat-icon color="primary">fast_forward</mat-icon>
+    </button>
+    <button mat-button class="like" (click)="like()">
+      <mat-icon color="{{isFavorite?'accent':'primary'}}">favorite</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.container {
+  position: relative;
+  margin:0 auto;
+  .like{
+    position: absolute;
+    right: 0;
+  }
+  mat-slider{
+    width:40%;
+  }
+
+  .controls{
+    button{
+      margin:5px;
+    }
+  }
+}

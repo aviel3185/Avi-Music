@@ -1,0 +1,6 @@
+<mat-tab-group color="accent" backgroundColor="primary">
+    <mat-tab label="All Songs">
+        <app-song *ngFor="let song of songs" [title]="song" #songs (notifyOnPlay)="playedSong($event)"></app-song>
+    </mat-tab>
+    <mat-tab label="Favorites"></mat-tab>
+</mat-tab-group>

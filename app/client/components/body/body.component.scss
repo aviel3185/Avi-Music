@@ -1,0 +1,21 @@
+$width:85%;
+.container{
+  position: relative;
+app-header{
+  width:$width;
+  position: absolute;
+  right:0;
+}
+
+app-utils{
+width:15%;    
+}
+
+app-playing-now {
+  bottom: 0;
+  position: absolute;
+  right:0;
+  text-align: center;
+  width:$width;
+}
+}
