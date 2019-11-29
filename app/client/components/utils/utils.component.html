@@ -4,8 +4,9 @@
         <label>Avi Music</label>
     </div>
     <mat-form-field class="search" color="primary">
-        <input matInput placeholder="Search" autocomplete="off" color="primary" [(ngModel)]="searchValue">
-        <button mat-button *ngIf="searchValue!=''" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+        <input matInput placeholder="Search" autocomplete="off" color="primary" [(ngModel)]="searchValue"
+            (ngModelChange)="changed(searchValue)">
+        <button mat-button *ngIf="searchValue!=''" matSuffix mat-icon-button aria-label="Clear" (click)="changed('')">
             <mat-icon color="accent">close</mat-icon>
         </button>
     </mat-form-field>

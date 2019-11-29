@@ -9,28 +9,32 @@ export class MusicService {
   public audioObj = new Audio();
   public songData = new EventEmitter();
   public songTime = new EventEmitter();
-  public title: string;
+  public currentSong: string;
+  public lastSong: string;
 
   constructor(private http: HttpClient) {
     this.audioObj.src = 'http://localhost:3000/streaming';
     this.audioObj.addEventListener('loadeddata', () => {
-      this.songData.emit({ duration: this.audioObj.duration, title: this.title });
+      this.songData.emit({ duration: this.audioObj.duration, title: this.currentSong });
     });
     this.audioObj.addEventListener('timeupdate', () => {
       this.songTime.emit(this.audioObj.currentTime);
     });
   }
-  
+
   play() {
     this.audioObj.load();
     this.audioObj.play();
+  }
+
+  toggleState(state: boolean) {
+    state === true ? this.audioObj.play() : this.audioObj.pause();
   }
 
   pause() {
     this.audioObj.pause();
   }
   unPause() {
-
     this.audioObj.play();
   }
 
@@ -40,10 +44,11 @@ export class MusicService {
 
 
   async updateStream(title: string) {
-    this.title = title;
+    this.currentSong = title;
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
-    return this.http.post<any>('/streaming', { title }, { headers }).toPromise();
+    await this.http.post<any>('/streaming', { title }, { headers }).toPromise();
+    // this.audioObj.load();
   }
 }

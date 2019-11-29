@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SongsService } from 'app/client/services/songs.service';
+import { MusicService } from 'app/client/services/music.service';
 
 @Component({
   selector: 'app-song',
@@ -11,7 +12,7 @@ export class SongComponent implements OnInit {
   @Input() title: string;
   @Input() playing = false;
   @Output() notifyOnPlay: EventEmitter<SongComponent> = new EventEmitter<SongComponent>();
-  constructor(private songsService: SongsService) { }
+  constructor(private songsService: SongsService, private musicService: MusicService) { }
 
   ngOnInit() {
   }
@@ -26,9 +27,14 @@ export class SongComponent implements OnInit {
     console.log(this.songsService.getFavorites());
   }
 
-  play() {
-    // this.playing = !this.playing;
-    this.notifyOnPlay.emit(this);
+  async play() {
+    if (!this.playing) {
+      await this.musicService.updateStream(this.title);
+      this.notifyOnPlay.emit(this);
+    } else {
+      this.musicService.pause();
+    }
+    this.playing = !this.playing;
   }
 
 }

@@ -19,9 +19,10 @@ import { FormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
-  declarations: [AppComponent, PlayingNowComponent, BodyComponent, HeaderComponent, UtilsComponent, SongComponent],
+  declarations: [AppComponent, PlayingNowComponent, BodyComponent, HeaderComponent, UtilsComponent, SongComponent, SearchPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,

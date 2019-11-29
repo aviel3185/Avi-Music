@@ -1,8 +1,8 @@
 <div class="container" *ngIf="true">
   <h3 color="primary">{{title}}</h3>
-  <label>{{currentTime/60}}:{{currentTime%60}}</label>
-  <mat-slider [(ngModel)]="currentTime"></mat-slider>
-  <label>{{duration}}</label>
+  <label>{{timestamp(currentTime)}}</label>
+  <mat-slider [(ngModel)]="currentTime" [max]="duration"></mat-slider>
+  <label>{{timestamp(duration)}}</label>
   <div class="controls">
     <button mat-button>
       <mat-icon color="primary">fast_rewind</mat-icon>

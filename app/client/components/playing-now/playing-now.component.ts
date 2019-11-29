@@ -10,8 +10,8 @@ export class PlayingNowComponent implements OnInit {
   public play = true;
   @Input() isFavorite = true;
   public title = '';
-  public duration: number;
-  public currentTime = 0;
+  public duration = '';
+  public currentTime = '0:00';
 
   constructor(private musicService: MusicService) { }
 
@@ -19,7 +19,7 @@ export class PlayingNowComponent implements OnInit {
     this.musicService.songData.subscribe((songdata: any) => {
       this.title = songdata.title;
       this.duration = songdata.duration;
-      this.currentTime = 0;
+      this.currentTime = '0:00';
       this.play = true;
     });
     this.musicService.songTime.subscribe((songtime) => {
@@ -29,14 +29,19 @@ export class PlayingNowComponent implements OnInit {
 
   state() {
     this.play = !this.play;
-    if (this.play) {
-      this.musicService.unPause();
-    } else {
-      this.musicService.pause();
-    }
-
+    this.musicService.toggleState(this.play);
   }
 
+  timestamp(seconds: number) {
+    // tslint:disable-next-line: no-bitwise
+    const min = ~~((seconds % 3600) / 60);
+    // tslint:disable-next-line: no-bitwise
+    const sec = ~~(seconds % 60);
+    let time = '';
+    time += '' + min + ':' + (sec < 10 ? '0' : '');
+    time += '' + sec;
+    return time;
+  }
 
   like() {
     this.isFavorite = !this.isFavorite;

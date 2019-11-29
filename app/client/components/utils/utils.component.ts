@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-utils',
@@ -7,9 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UtilsComponent implements OnInit {
   @Input() searchValue = '';
+  @Output() emitValue = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
   }
-
+  changed(val) {
+    this.searchValue = val;
+    this.emitValue.emit(val);
+  }
 }
