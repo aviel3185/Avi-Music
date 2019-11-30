@@ -5,14 +5,18 @@ const util = require('util');
 const readfile = util.promisify(fs.readFile);
 var title = 'עצי כסף.mp3';
 async function getSong(req, res) {
-
-        res.set('content-type', 'audio/mp3');
-    fs.createReadStream(process.env.SONGS_PATH + '/' + title).pipe(res);
+    // res.set('Content-Length', 200);
+    res.set('content-type', 'audio/mp3');
+    // console.log(res);
+    // res.set('Accept-Ranges', 'none');
+    console.log(title);
+    // fs.createReadStream(process.env.SONGS_PATH + '/' + title).pipe(res);
+    // res.end();
 }
 
 updateStream = (req, res) => {
-    console.log(req.body);
-    title = Object.keys(req.body)[0].replace('{"title":"',"").replace('"}',"");
+    title = Object.keys(req.body)[0].replace('{"title":"', "").replace('"}', "");
+    // console.log(title);
     res.status(200).json('done');
 }
 

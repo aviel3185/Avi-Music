@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import * as moment from 'moment';
-
+import { Socket } from 'ngx-socket-io';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +11,12 @@ export class MusicService {
   public currentSong: string;
   public lastSong: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private socket: Socket) {
+    socket.on('refresh', () => {
+      console.log('refreshed');
+      this.audioObj.load();
+      this.audioObj.play();
+    });
     this.audioObj.src = 'http://localhost:3000/streaming';
     this.audioObj.addEventListener('loadeddata', () => {
       this.songData.emit({ duration: this.audioObj.duration, title: this.currentSong });
@@ -23,8 +27,12 @@ export class MusicService {
   }
 
   play() {
-    this.audioObj.load();
-    this.audioObj.play();
+    this.socket.emit('refresh');
+  }
+
+  setTime(value) {
+    this.audioObj.currentTime = value;
+    // this.audioObj.fastSeek()
   }
 
   toggleState(state: boolean) {
@@ -36,10 +44,6 @@ export class MusicService {
   }
   unPause() {
     this.audioObj.play();
-  }
-
-  setTime(current: number) {
-    this.audioObj.currentTime = current;
   }
 
 

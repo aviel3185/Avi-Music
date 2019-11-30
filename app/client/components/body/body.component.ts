@@ -11,10 +11,4 @@ export class BodyComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  searchValueChanged(searchValue: string) {
-    this.SearchValue = searchValue;
-    console.log(searchValue);
-    // this.emitSearchValue.emit(searchValue);
-  }
 }

@@ -32,6 +32,10 @@ export class PlayingNowComponent implements OnInit {
     this.musicService.toggleState(this.play);
   }
 
+  test(event) {
+    this.musicService.setTime(event.value);
+  }
+
   timestamp(seconds: number) {
     // tslint:disable-next-line: no-bitwise
     const min = ~~((seconds % 3600) / 60);

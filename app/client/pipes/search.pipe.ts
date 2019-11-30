@@ -7,10 +7,7 @@ export class SearchPipe implements PipeTransform {
 
   transform(songs: string[], ...args: string[]): any {
     const songQuery = args[0];
-    if (songQuery === '') {
-      return songs;
-    }
-    return null;
+    return songQuery === '' ? songs : songs.filter(song => song.toLowerCase().includes(songQuery.toLowerCase()));
   }
 
 }

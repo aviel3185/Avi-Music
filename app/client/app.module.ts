@@ -20,10 +20,14 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
 import { SearchPipe } from './pipes/search.pipe';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [AppComponent, PlayingNowComponent, BodyComponent, HeaderComponent, UtilsComponent, SongComponent, SearchPipe],
   imports: [
+    SocketIoModule.forRoot(config),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
