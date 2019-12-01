@@ -5,18 +5,17 @@ import { Socket } from 'ngx-socket-io';
   providedIn: 'root'
 })
 export class MusicService {
-  public audioObj = new Audio();
+  private audioObj = new Audio();
   public songData = new EventEmitter();
   public songTime = new EventEmitter();
-  public currentSong: string;
-  public lastSong: string;
-
+  private currentSong: string;
   constructor(private http: HttpClient, private socket: Socket) {
     socket.on('refresh', () => {
       console.log('refreshed');
       this.audioObj.load();
       this.audioObj.play();
     });
+
     this.audioObj.src = 'http://localhost:3000/streaming';
     this.audioObj.addEventListener('loadeddata', () => {
       this.songData.emit({ duration: this.audioObj.duration, title: this.currentSong });
@@ -28,12 +27,6 @@ export class MusicService {
 
   play() {
     this.socket.emit('refresh');
-  }
-
-  setTime(value) {
-    this.audioObj.currentTime = value;
-    this.audioObj.src = 'http://localhost:3000/streaming';
-    // this.audioObj.fastSeek()
   }
 
   toggleState(state: boolean) {
@@ -54,6 +47,5 @@ export class MusicService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     await this.http.post<any>('/streaming', { title }, { headers }).toPromise();
-    // this.audioObj.load();
   }
 }
