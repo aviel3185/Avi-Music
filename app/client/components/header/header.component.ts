@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   public songs: string[];
   @Input() searchQuery: string;
   public lastPlayedSong: SongComponent;
-  constructor(private songsService: SongsService, private musicService: MusicService) { }
+  constructor(private songsService: SongsService, public musicService: MusicService) { }
 
   ngOnInit() {
     this.init();

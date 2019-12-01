@@ -1,7 +1,7 @@
 <div class="container" *ngIf="true">
   <h3 color="primary">{{title}}</h3>
   <label>{{timestamp(currentTime)}}</label>
-  <mat-slider [(ngModel)]="currentTime" [max]="duration" (input)="this.musicService.audioObj.currentTime=$event.value">
+  <mat-slider [(ngModel)]="currentTime" [max]="duration" disabled  (input)="this.musicService.audioObj.currentTime=$event.value">
   </mat-slider>
   <label>{{timestamp(duration)}}</label>
   <div class="controls">

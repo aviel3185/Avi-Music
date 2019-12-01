@@ -2,7 +2,6 @@
     <mat-tab label="All Songs">
         <app-song *ngFor="let song of songs | search:searchQuery" [title]="song" #songs
             (notifyOnPlay)="playedSong($event)"></app-song>
-        <button (click)="this.musicService.audioObj.currentTime=10">awgawg</button>
     </mat-tab>
     <mat-tab label="Favorites"></mat-tab>
 </mat-tab-group>

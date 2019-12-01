@@ -32,6 +32,7 @@ export class MusicService {
 
   setTime(value) {
     this.audioObj.currentTime = value;
+    this.audioObj.src = 'http://localhost:3000/streaming';
     // this.audioObj.fastSeek()
   }
 

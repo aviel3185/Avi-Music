@@ -8,9 +8,9 @@ async function getSong(req, res) {
     // res.set('Content-Length', 200);
     res.set('content-type', 'audio/mp3');
     // console.log(res);
-    // res.set('Accept-Ranges', 'none');
+    // res.set('Accept-Ranges', 'bytes');
     console.log(title);
-    // fs.createReadStream(process.env.SONGS_PATH + '/' + title).pipe(res);
+    fs.createReadStream(process.env.SONGS_PATH + '/' + title).pipe(res);
     // res.end();
 }
 
