@@ -1,8 +1,14 @@
 const { getAll } = require('./songs.service');
 
 async function getSongs(req, res) {
-    const songs = await getAll();
-    res.json(songs);
+    try {
+        const songs = await getAll();
+        res.json(songs);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500);
+    }
 }
 
 getFavoriteSongs = (req, res) => {

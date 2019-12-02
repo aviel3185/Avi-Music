@@ -1,10 +1,34 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MusicService } from 'app/client/services/music.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-playing-now',
   templateUrl: './playing-now.component.html',
-  styleUrls: ['./playing-now.component.scss']
+  styleUrls: ['./playing-now.component.scss'],
+  animations: [
+    trigger(
+      'inOutAnimation',
+      [
+        transition(
+          ':enter',
+          [
+            style({ height: 0, opacity: 0 }),
+            animate('0.5s ease-out',
+              style({ height: 115, opacity: 1 }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ height: 115, opacity: 1 }),
+            animate('0.5s ease-in',
+              style({ height: 0, opacity: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class PlayingNowComponent implements OnInit {
   public play = true;

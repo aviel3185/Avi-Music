@@ -1,4 +1,4 @@
-<div class="container" *ngIf="true">
+<div class="container" *ngIf="title" [@inOutAnimation]>
   <h3 color="primary">{{title}}</h3>
   <label>{{timestamp(currentTime)}}</label>
   <mat-slider [(ngModel)]="currentTime" [max]="duration" disabled>

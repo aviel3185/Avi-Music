@@ -10,10 +10,14 @@ export class MusicService {
   public songTime = new EventEmitter();
   private currentSong: string;
   constructor(private http: HttpClient, private socket: Socket) {
-    socket.on('refresh', () => {
-      console.log('refreshed');
+    socket.on('play', (title) => {
+      this.currentSong = title;
       this.audioObj.load();
       this.audioObj.play();
+    });
+    socket.on('stop', () => {
+      this.audioObj.pause();
+      this.songData.emit({ duration: 0, title: '' });
     });
 
     this.audioObj.src = 'http://localhost:3000/streaming';
@@ -26,7 +30,7 @@ export class MusicService {
   }
 
   play() {
-    this.socket.emit('refresh');
+    this.socket.emit('play', { title: this.currentSong });
   }
 
   toggleState(state: boolean) {
@@ -38,6 +42,14 @@ export class MusicService {
   }
   unPause() {
     this.audioObj.play();
+  }
+
+  stop() {
+    this.socket.emit('stop');
+  }
+
+  setVolume(volume: number) {
+    this.audioObj.volume = volume;
   }
 
 

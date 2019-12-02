@@ -32,7 +32,8 @@ export class SongComponent implements OnInit {
       await this.musicService.updateStream(this.title);
       this.notifyOnPlay.emit(this);
     } else {
-      this.musicService.pause();
+      this.musicService.stop();
+
     }
     this.playing = !this.playing;
   }

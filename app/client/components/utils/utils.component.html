@@ -1,14 +1,23 @@
 <div class="container">
+    <!-- header -->
     <div class="header">
         <img src="../../../assets/avi-music.icon.svg">
         <label>Avi Music</label>
     </div>
+
+    <!-- Search -->
     <mat-form-field class="search" color="primary">
         <input matInput placeholder="Search" autocomplete="off" color="primary" [(ngModel)]="searchValue"
-            (ngModelChange)="changed(searchValue)">
-        <button mat-button *ngIf="searchValue!=''" matSuffix mat-icon-button aria-label="Clear" (click)="changed('')">
+            (ngModelChange)="changedSearchValue(searchValue)">
+        <button mat-button *ngIf="searchValue!=''" matSuffix mat-icon-button aria-label="Clear"
+            (click)="changedSearchValue('')">
             <mat-icon color="accent">close</mat-icon>
         </button>
     </mat-form-field>
 
+    <!-- volume -->
+    <div class="volume">
+        <mat-slider [(ngModel)]="volume" [min]="0" [max]="1" [step]="0.1"></mat-slider>
+        <mat-icon [ngStyle]="{'color':'white'}">{{volume}}</mat-icon>
+    </div>
 </div>
