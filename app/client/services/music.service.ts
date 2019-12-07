@@ -5,13 +5,16 @@ import { Socket } from 'ngx-socket-io';
   providedIn: 'root'
 })
 export class MusicService {
-  private audioObj = new Audio();
+  public audioObj = new Audio();
+  private currentSong: string;
+  public volume = new EventEmitter();
   public songData = new EventEmitter();
   public songTime = new EventEmitter();
-  private currentSong: string;
   constructor(private http: HttpClient, private socket: Socket) {
-    socket.on('play', (title) => {
+    socket.on('play', (title, volume) => {
       this.currentSong = title;
+      this.audioObj.volume = volume;
+      this.volume.emit(volume);
       this.audioObj.load();
       this.audioObj.play();
     });
@@ -19,14 +22,35 @@ export class MusicService {
       this.audioObj.pause();
       this.songData.emit({ duration: 0, title: '' });
     });
+    socket.on('volume', (volume) => {
+      this.volume.emit(volume);
+      this.audioObj.volume = volume;
+    });
+    socket.on('rewind', () => {
+      this.audioObj.currentTime = 0;
+    });
+    socket.on('pause', () => {
+      this.audioObj.pause();
+    });
+    socket.on('unpause', () => {
+      this.audioObj.play();
+    });
 
-    this.audioObj.src = 'http://localhost:3000/streaming';
+    this.audioObj.onended = () => {
+      this.socket.emit('ended');
+    };
     this.audioObj.addEventListener('loadeddata', () => {
       this.songData.emit({ duration: this.audioObj.duration, title: this.currentSong });
     });
     this.audioObj.addEventListener('timeupdate', () => {
       this.songTime.emit(this.audioObj.currentTime);
     });
+
+    this.audioObj.src = 'http://localhost:3000/streaming';
+  }
+
+  rewind() {
+    this.socket.emit('rewind');
   }
 
   play() {
@@ -38,10 +62,10 @@ export class MusicService {
   }
 
   pause() {
-    this.audioObj.pause();
+    this.socket.emit('pause');
   }
   unPause() {
-    this.audioObj.play();
+    this.socket.emit('unpause');
   }
 
   stop() {
@@ -49,15 +73,12 @@ export class MusicService {
   }
 
   setVolume(volume: number) {
-    this.audioObj.volume = volume;
+    this.socket.emit('volume', volume);
   }
 
 
-  async updateStream(title: string) {
+  updateStream(title: string) {
     this.currentSong = title;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    await this.http.post<any>('/streaming', { title }, { headers }).toPromise();
+    return this.http.post<any>('/streaming', { title }).toPromise();
   }
 }

@@ -18,13 +18,6 @@ export class SongComponent implements OnInit {
   }
 
   like() {
-    this.isFavorite = !this.isFavorite;
-    if (this.isFavorite) {
-      this.songsService.addFavorite(this.title);
-    } else {
-      this.songsService.removeFavorite(this.title);
-    }
-    console.log(this.songsService.getFavorites());
   }
 
   async play() {

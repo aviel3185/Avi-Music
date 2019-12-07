@@ -6,35 +6,17 @@ import { debug } from 'util';
   providedIn: 'root'
 })
 export class SongsService {
-
-  // private favorites: string[] = Array.of(localStorage.getItem('favorites').split(','))[0] || Array.of('');
-  constructor(private http: HttpClient) {
-    if (!localStorage.getItem('favorites')) {
-      localStorage.setItem('favorites', '');
-    } else {
-      if (this.getFavorites()[0] === '') {
-        this.removeFavorite('');
-      }
-    }
-  }
+  constructor(private http: HttpClient) { }
 
   getSongs() {
     return this.http.get<string[]>('/api/songs').toPromise();
   }
 
-  getFavorites(): string[] {
-    return localStorage.getItem('favorites').split(',');
+  getRandom() {
+    return this.http.get<string>('/api/songs/random').toPromise();
   }
 
-  addFavorite(title: string) {
-    const favorites = this.getFavorites();
-    favorites.push(title);
-    localStorage.setItem('favorites', favorites.toString());
-  }
-
-  removeFavorite(title: string) {
-    let favorites = this.getFavorites();
-    favorites = favorites.filter(song => song !== title);
-    localStorage.setItem('favorites', favorites.toString());
+  getMe() {
+    return this.http.get('/authenticate').toPromise();
   }
 }

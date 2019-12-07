@@ -11,6 +11,17 @@ async function getSongs(req, res) {
     }
 }
 
+async function getRandomSong(req, res) {
+    try {
+        const songs = await getAll();
+        const song = songs[Math.floor(Math.random() * songs.length)];
+        res.json(song);
+    } catch (err) {
+        console.log(err);
+        res.status(500);
+    }
+}
+
 getFavoriteSongs = (req, res) => {
 
 }
@@ -18,5 +29,6 @@ getFavoriteSongs = (req, res) => {
 
 module.exports = {
     getSongs,
-    getFavoriteSongs
+    getFavoriteSongs,
+    getRandomSong
 }

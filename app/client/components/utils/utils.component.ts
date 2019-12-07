@@ -20,16 +20,17 @@ export class UtilsComponent implements OnInit {
     }
     return 'volume_up';
   }
-
-  set volume(value: any) {
-    this._volume = value;
-    console.log(value);
-    this.musicService.setVolume(value);
-  }
-  constructor(private musicService: MusicService) { }
+  constructor(public musicService: MusicService) { }
 
   ngOnInit() {
-    this.volume = 0.5;
+    this.musicService.volume.subscribe((volume) => {
+      this._volume = volume;
+    });
+  }
+
+  SetVolume(volume: number) {
+    this._volume = volume;
+    this.musicService.setVolume(volume);
   }
   changedSearchValue(val) {
     this.searchValue = val;

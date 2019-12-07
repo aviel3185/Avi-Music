@@ -5,16 +5,16 @@
   </mat-slider>
   <label>{{timestamp(duration)}}</label>
   <div class="controls">
-    <button mat-button>
+    <button mat-button (click)="musicService.rewind()">
       <mat-icon color="primary">fast_rewind</mat-icon>
     </button>
     <button mat-button (click)="state()">
       <mat-icon color="primary">{{play?"pause":"play_arrow"}}</mat-icon>
     </button>
-    <button mat-button>
+    <button mat-button (click)="playNext()">
       <mat-icon color="primary">fast_forward</mat-icon>
     </button>
-    <button mat-button class="like" (click)="like()">
+    <button mat-button class=" like" (click)="like()">
       <mat-icon color="{{isFavorite?'accent':'primary'}}">favorite</mat-icon>
     </button>
   </div>

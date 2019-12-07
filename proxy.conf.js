@@ -1,32 +1,29 @@
 const Agent = require('agentkeepalive');
+
 module.exports = {
-    "/api": {
-        "target": "http://localhost:3000",
-        "secure": false,
-        changeOrigin: true,
-        keepAlive: true,
-        agent: new Agent({
-            maxSockets: 100,
-            keepAlive: true,
-            maxFreeSockets: 10,
-            freeSocketTimeout: 30000,
-            timeout: 60000,
-            keepAliveMsecs: 300000,
-
-        })
+    '/api': {
+        target: 'http://localhost:3000',
+        secure: false,
     },
-    "/streaming": {
-        "target": "http://localhost:3000",
-        "secure": false,
-        changeOrigin: true,
+    '/streaming': {
+        target: 'http://localhost:3000',
+        secure: false,
+    },
+    '/authenticate': {
+        target: 'http://localhost:3000',
+        secure: false,
         agent: new Agent({
             maxSockets: 100,
             keepAlive: true,
             maxFreeSockets: 10,
-            freeSocketTimeout: 30000,
-            timeout: 60000,
-            keepAliveMsecs: 300000,
-
-        })
+            keepAliveMsecs: 100000,
+            timeout: 6000000,
+            keepAliveTimeout: 90000
+        }),
+        onProxyRes: proxyRes => {
+            let key = 'www-authenticate';
+            proxyRes.headers[key] = proxyRes.headers[key] &&
+                proxyRes.headers[key].split(',');
+        }
     }
-}
+};

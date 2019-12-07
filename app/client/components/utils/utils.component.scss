@@ -1,40 +1,41 @@
-.container{
-    width:15%;
-    height:100vh;
-    background-color:rgb(63, 81, 181);
-    .header{
-        display: flex;
-        align-items: center;
-        border-block-end:5px white solid;
-        top:-3px;
-        // padding:3px;
-        label{
-            font-size:2em;
-            color:white;
-        }
+.container {
+  width: 15%;
+  height: 100vh;
+  background-color: rgb(63, 81, 181);
+  .header {
+    display: flex;
+    align-items: center;
+    border-block-end: 5px white solid;
+    top: -3px;
+    // padding:3px;
+    label {
+      font-size: 2em;
+      color: white;
     }
-    .search{
-        margin:20px;
-        // change color of label and text
-        ::ng-deep label,input {
-            color: white !important;
-           }
-          
-        // change color of underline
-           ::ng-deep.mat-form-field-underline {
-            background-color: white !important;
-          } 
-          
-          // change color of underline when focused
-          ::ng-deep.mat-form-field-ripple {
-           background-color: palevioletred !important;
-          }
+  }
+  .search {
+    margin: 20px;
+    // change color of label and text
+    ::ng-deep label,
+    input {
+      color: white !important;
     }
 
-    .volume{
-        margin:20px;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;;
+    // change color of underline
+    ::ng-deep.mat-form-field-underline {
+      background-color: white !important;
     }
+
+    // change color of underline when focused
+    ::ng-deep.mat-form-field-ripple {
+      background-color: #ff4081 !important;
+    }
+  }
+
+  .volume {
+    margin: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 }

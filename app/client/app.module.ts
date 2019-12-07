@@ -34,6 +34,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatIconModule,
     MatButtonModule,
     MatTabsModule,
+    
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,

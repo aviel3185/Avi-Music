@@ -18,9 +18,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/AviMusic",
-            "index": "app/index.html",
-            "main": "app/main.ts",
-            "polyfills": "app/polyfills.ts",
+            "index": "app/client/index.html",
+            "main": "app/client/main.ts",
+            "polyfills": "app/client/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
@@ -29,7 +29,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "app/styles.scss"
+              "app/client/styles.scss"
             ],
             "scripts": []
           },
@@ -37,8 +37,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "app/environments/environment.ts",
-                  "with": "app/environments/environment.prod.ts"
+                  "replace": "app/client/environments/environment.ts",
+                  "with": "app/client/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -85,8 +85,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "app/test.ts",
-            "polyfills": "app/polyfills.ts",
+            "main": "app/client/test.ts",
+            "polyfills": "app/client/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -95,7 +95,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "app/styles.scss"
+              "app/client/styles.scss"
             ],
             "scripts": []
           }
