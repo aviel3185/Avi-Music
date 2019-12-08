@@ -26,9 +26,20 @@ getFavoriteSongs = (req, res) => {
 
 }
 
+postSong = (req, res) => {
+    const song = req.files.fileKey;
+    song.mv(process.env.SONGS_PATH + '/' + song.name, (err) => {
+        if (err) {
+            res.status(500).json({ message: 'Could not complete Operation at postSong' });
+        } else {
+            res.status(200);
+        }
+    });
+}
 
 module.exports = {
     getSongs,
+    postSong,
     getFavoriteSongs,
     getRandomSong
 }

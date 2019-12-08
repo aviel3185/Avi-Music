@@ -19,4 +19,10 @@ export class SongsService {
   getMe() {
     return this.http.get('/authenticate').toPromise();
   }
+
+  postSong(song: File) {
+    const formData: FormData = new FormData();
+    formData.append('fileKey', song, song.name);
+    return this.http.post('/api/songs', formData).toPromise();
+  }
 }

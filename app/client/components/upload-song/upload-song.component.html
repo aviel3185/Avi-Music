@@ -1,0 +1,7 @@
+<div class="upload-btn-wrapper">
+    <button class="btn" mat-raised-button color="primary">{{song===undefined?'Select File':song.name}}</button>
+    <form>
+        <input type="file" (change)="song=$event.target.files[0]">
+    </form>
+</div>
+<button mat-button color="accent" (click)="songService.postSong(song)">Upload</button>

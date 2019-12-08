@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MusicService } from 'app/client/services/music.service';
+import { UploadSongComponent } from '../upload-song/upload-song.component';
 
 @Component({
   selector: 'app-utils',
@@ -20,7 +22,7 @@ export class UtilsComponent implements OnInit {
     }
     return 'volume_up';
   }
-  constructor(public musicService: MusicService) { }
+  constructor(public musicService: MusicService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
     this.musicService.volume.subscribe((volume) => {
@@ -32,8 +34,13 @@ export class UtilsComponent implements OnInit {
     this._volume = volume;
     this.musicService.setVolume(volume);
   }
+
   changedSearchValue(val) {
     this.searchValue = val;
     this.emitValue.emit(val);
+  }
+
+  postSong() {
+    this.bottomSheet.open(UploadSongComponent);
   }
 }

@@ -19,13 +19,16 @@ import { FormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { SearchPipe } from './pipes/search.pipe';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { UploadSongComponent } from './components/upload-song/upload-song.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
-  declarations: [AppComponent, PlayingNowComponent, BodyComponent, HeaderComponent, UtilsComponent, SongComponent, SearchPipe],
+  declarations: [AppComponent, PlayingNowComponent, BodyComponent, HeaderComponent,
+    UtilsComponent, SongComponent, SearchPipe, UploadSongComponent],
   imports: [
     SocketIoModule.forRoot(config),
     BrowserModule,
@@ -34,7 +37,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatIconModule,
     MatButtonModule,
     MatTabsModule,
-    
+    MatBottomSheetModule,
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
@@ -44,6 +47,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     HttpClientModule,
     MatSliderModule
   ],
+  entryComponents: [UploadSongComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

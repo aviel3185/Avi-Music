@@ -24,7 +24,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
-              "app/favicon.ico",
+              "app/assets/avi-music.icon.svg",
               "app/assets"
             ],
             "styles": [
@@ -90,7 +90,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "app/favicon.ico",
+              "app/assets/avi-music.icon.svg",
               "app/assets"
             ],
             "styles": [

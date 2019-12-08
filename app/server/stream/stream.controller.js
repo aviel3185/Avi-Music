@@ -1,14 +1,10 @@
 const fs = require('fs');
-const util = require('util');
-const readfile = util.promisify(fs.readFile);
 let title = '';
 getSong = (req, res) => {
-    console.log('abc');
     res.status(200)
     try {
 
         if (title) {
-
             const path = process.env.SONGS_PATH + '/' + title;
             const stat = fs.statSync(path)
             const fileSize = stat.size
@@ -32,15 +28,15 @@ getSong = (req, res) => {
             //     res.writeHead(206, head);
             //     file.pipe(res);
             // } else {
-                const head = {
-                    'Content-Length': fileSize,
-                    'Content-Type': 'audio/mp3',
-                }
-                res.writeHead(200, head)
-                fs.createReadStream(path).pipe(res)
+            const head = {
+                'Content-Length': fileSize,
+                'Content-Type': 'audio/mp3',
             }
-            // fs.createReadStream(process.env.SONGS_PATH + '/' + title).pipe(res);
+            res.writeHead(200, head)
+            fs.createReadStream(path).pipe(res)
         }
+        // fs.createReadStream(process.env.SONGS_PATH + '/' + title).pipe(res);
+    }
     // }
     catch (err) {
         console.log(err);
@@ -48,7 +44,6 @@ getSong = (req, res) => {
 }
 
 updateStream = (req, res) => {
-    console.log('t');
     try {
         title = req.body.title;
         res.status(200).json('success')
@@ -58,7 +53,6 @@ updateStream = (req, res) => {
         res.status(500);
     }
 }
-
 module.exports = {
     getSong,
     updateStream
