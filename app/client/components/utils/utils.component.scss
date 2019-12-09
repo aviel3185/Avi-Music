@@ -1,6 +1,7 @@
 .container {
   width: 15%;
   height: 100vh;
+  overflow: hidden;
   background-color: rgb(63, 81, 181);
   .header {
     display: flex;
@@ -39,7 +40,7 @@
     align-items: center;
   }
 
-  .postSong{
+  .postSong {
     position: absolute;
     bottom: 3%;
     left: 1%;

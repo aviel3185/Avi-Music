@@ -11,6 +11,7 @@ module.exports = (app) => {
         } else {
             socket.emit('volume', volume);
         }
+        
         socket.on('play', (data) => {
             titl = data.title;
             io.emit('play', data.title, volume);
