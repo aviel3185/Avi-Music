@@ -16,10 +16,6 @@ export class SongsService {
     return this.http.get<string>('/api/songs/random').toPromise();
   }
 
-  getMe() {
-    return this.http.get('/authenticate').toPromise();
-  }
-
   postSong(song: File) {
     const formData: FormData = new FormData();
     formData.append('fileKey', song, song.name);

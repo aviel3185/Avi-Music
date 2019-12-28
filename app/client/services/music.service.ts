@@ -1,26 +1,35 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Socket } from 'ngx-socket-io';
+import { UIManagerService } from './ui-manager.service';
+import { MatSnackBar } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
 export class MusicService {
   public audioObj = new Audio();
   private currentSong: string;
+  private currentSongID: number;
   public volume = new EventEmitter();
   public songData = new EventEmitter();
   public songTime = new EventEmitter();
-  constructor(private http: HttpClient, private socket: Socket) {
-    socket.on('play', (title, volume) => {
+  constructor(private http: HttpClient, private socket: Socket, UIManager: UIManagerService, private snackBar: MatSnackBar) {
+    socket.on('play', (title, id, volume) => {
       this.currentSong = title;
+      this.currentSongID = id;
       this.audioObj.volume = volume;
+      UIManager.played(id);
       this.volume.emit(volume);
       this.audioObj.load();
-      this.audioObj.play();
+      this.audioObj.play().catch(() => {
+        snackBar.open('Could not play file', 'X');
+        UIManager.stop();
+      });
     });
     socket.on('stop', () => {
       this.audioObj.pause();
       this.songData.emit({ duration: 0, title: '' });
+      UIManager.stop();
     });
     socket.on('volume', (volume) => {
       this.volume.emit(volume);
@@ -54,7 +63,7 @@ export class MusicService {
   }
 
   play() {
-    this.socket.emit('play', { title: this.currentSong });
+    this.socket.emit('play', { title: this.currentSong, id: this.currentSongID });
   }
 
   toggleState(state: boolean) {
@@ -77,8 +86,9 @@ export class MusicService {
   }
 
 
-  updateStream(title: string) {
+  updateStream(title: string, id: number) {
     this.currentSong = title;
+    this.currentSongID = id;
     return this.http.post<any>('/streaming', { title }).toPromise();
   }
 }

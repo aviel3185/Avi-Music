@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbPath = 'mongodb://127.0.0.1/AviMusic';
+const dbPath = process.env.DB_PATH;
 mongoose.connect(dbPath, { useUnifiedTopology: true });
 
 //Get the default connection

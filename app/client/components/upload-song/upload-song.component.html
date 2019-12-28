@@ -1,7 +1,14 @@
-<div class="upload-btn-wrapper">
-    <button class="btn" mat-raised-button color="primary">{{song===undefined?'Select File':song.name}}</button>
-    <form>
-        <input type="file" (change)="song=$event.target.files[0]">
-    </form>
+<div class="container" *ngIf="!uploadDone; else doneBlock">
+    <div class="upload-btn-wrapper">
+        <button class="btn" mat-raised-button color="primary">{{song===undefined?'Select song':song.name}}</button>
+        <form>
+            <input type="file" (change)="song=$event.target.files[0]" accept=".mp3">
+        </form>
+    </div>
+    <button mat-button color="accent" [disabled]="!song" (click)="uploadSong()">Upload</button>
 </div>
-<button mat-button color="accent" (click)="songService.postSong(song)">Upload</button>
+<ng-template #doneBlock>
+    <div class="done-upload">
+        <mat-icon>done_outline</mat-icon>
+    </div>
+</ng-template>

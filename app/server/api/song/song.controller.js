@@ -32,7 +32,7 @@ postSong = (req, res) => {
         if (err) {
             res.status(500).json({ message: 'Could not complete Operation at postSong' });
         } else {
-            res.status(200);
+            res.status(200).json('success');
         }
     });
 }

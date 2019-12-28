@@ -2,22 +2,44 @@
 module.exports = (app) => {
     const http = require('http').Server(app);
     const io = require('socket.io')(http);
-    var titl = '';
+    const socketioJwt = require("socketio-jwt");
+    let currentlyConnected = 0;
+    let title = '';
     var volume = 0.5;
+    let id;
+
+    // io.use(socketioJwt.authorize({
+    //     secret: process.env.SECRET,
+    //     handshake: true,
+    //     timeout: 1000
+    // }));
+    // const auth = socketioJwt.authorize({
+    //     secret: process.env.SECRET,
+    //     handshake: true,
+    //     timeout: 15000
+    // });
     io.on('connection', socket => {
+        currentlyConnected += 1;
+        io.emit('updatedCount', currentlyConnected);
         //On connection decided if to play the current song
-        if (titl !== '') {
-            socket.emit('play', titl, volume);
+        if (title !== '') {
+            socket.emit('play', title, id, volume);
         } else {
             socket.emit('volume', volume);
         }
-        
+
+        socket.on('disconnect', () => {
+            currentlyConnected -= 1;
+            io.emit('updatedCount', currentlyConnected);
+        })
+
         socket.on('play', (data) => {
-            titl = data.title;
-            io.emit('play', data.title, volume);
+            title = data.title;
+            id = data.id;
+            io.emit('play', data.title, id, volume);
         });
         socket.on('stop', () => {
-            titl = '';
+            title = '';
             io.emit('stop');
         });
         socket.on('ended', () => {
@@ -35,7 +57,8 @@ module.exports = (app) => {
         });
         socket.on('unpause', () => {
             io.emit('unpause');
-        })
-    })
+        });
+    });
+
     return http;
 };

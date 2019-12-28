@@ -1,0 +1,22 @@
+<div class="container">
+    <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList aria-label="Fruit selection ">
+            <mat-chip *ngFor="let admin of users|filterUsers:true; let length=count" [selectable]="false"
+                [removable]="length>1" (removed)="remove(admin)">
+                {{admin.username}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New admin" #fruitInput [formControl]="adminCtrl" [matAutocomplete]="auto"
+                [matChipInputFor]="chipList">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOption($event)" class="auto-complete">
+            <mat-option *ngFor="let user of users|filterUsers:false" [value]="user">
+                {{user.username}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <div class="actions">
+        <button mat-raised-button color="accent" class="save" [mat-dialog-close]="users">Save</button>
+        <button mat-raised-button color="primary" class="cancel" [mat-dialog-close]>Cancel</button>
+    </div>
+</div>

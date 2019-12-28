@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SongsService } from 'app/client/services/songs.service';
 
 @Component({
@@ -8,9 +8,16 @@ import { SongsService } from 'app/client/services/songs.service';
 })
 export class UploadSongComponent implements OnInit {
   public song: File;
-  constructor(public songService: SongsService) { }
+  public uploadDone = false;
+  constructor(public songService: SongsService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+
+  async uploadSong() {
+    await this.songService.postSong(this.song);
+    this.uploadDone = true;
+    this.cd.detectChanges();
   }
 
 }

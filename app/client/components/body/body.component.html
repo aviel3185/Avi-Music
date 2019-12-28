@@ -1,5 +1,5 @@
 <div class="container">
-    <app-header [searchQuery]="SearchValue"></app-header>
+    <app-header [searchQuery]="SearchValue" [isAdmin]="isAdmin"></app-header>
     <app-utils (emitValue)="SearchValue = $event"></app-utils>
-    <app-playing-now></app-playing-now>
+    <app-playing-now [isAdmin]="isAdmin"></app-playing-now>
 </div>

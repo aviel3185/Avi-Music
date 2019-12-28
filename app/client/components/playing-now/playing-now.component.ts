@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MusicService } from 'app/client/services/music.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { SongsService } from 'app/client/services/songs.service';
+import { UIManagerService } from 'app/client/services/ui-manager.service';
 
 @Component({
   selector: 'app-playing-now',
@@ -16,13 +17,13 @@ import { SongsService } from 'app/client/services/songs.service';
           [
             style({ height: 0, opacity: 0 }),
             animate('0.5s ease-out',
-              style({ height: 115, opacity: 1 }))
+              style({ height: '*', opacity: 1 }))
           ]
         ),
         transition(
           ':leave',
           [
-            style({ height: 115, opacity: 1 }),
+            style({ height: '*', opacity: 1 }),
             animate('0.5s ease-in',
               style({ height: 0, opacity: 0 }))
           ]
@@ -34,11 +35,12 @@ import { SongsService } from 'app/client/services/songs.service';
 export class PlayingNowComponent implements OnInit {
   public play = true;
   @Input() isFavorite = true;
+  @Input() isAdmin: boolean;
   public title = '';
   public duration = '';
   public currentTime = '0:00';
 
-  constructor(public musicService: MusicService, private songService: SongsService) { }
+  constructor(public musicService: MusicService, private songService: SongsService, public UIManger: UIManagerService) { }
 
   ngOnInit() {
     this.musicService.songData.subscribe((songdata: any) => {
@@ -70,7 +72,7 @@ export class PlayingNowComponent implements OnInit {
 
   async playNext() {
     const song = await this.songService.getRandom();
-    await this.musicService.updateStream(song);
+    await this.musicService.updateStream(song, this.UIManger.getSongID(song));
     this.musicService.play();
   }
 

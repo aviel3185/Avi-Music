@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MusicService } from 'app/client/services/music.service';
 import { UploadSongComponent } from '../upload-song/upload-song.component';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-utils',
@@ -13,6 +14,7 @@ export class UtilsComponent implements OnInit {
   public _volume: number;
   @Input() searchValue = '';
   @Output() emitValue = new EventEmitter<string>();
+  public peopleCount;
 
   get volume() {
     if (this._volume === 0) {
@@ -22,7 +24,11 @@ export class UtilsComponent implements OnInit {
     }
     return 'volume_up';
   }
-  constructor(public musicService: MusicService, private bottomSheet: MatBottomSheet) { }
+  constructor(public musicService: MusicService, private bottomSheet: MatBottomSheet, socket: Socket) {
+    socket.on('updatedCount', (count) => {
+      this.peopleCount = count;
+    });
+  }
 
   ngOnInit() {
     this.musicService.volume.subscribe((volume) => {
@@ -31,7 +37,6 @@ export class UtilsComponent implements OnInit {
   }
 
   SetVolume(volume: number) {
-    this._volume = volume;
     this.musicService.setVolume(volume);
   }
 

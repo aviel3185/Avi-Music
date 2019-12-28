@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   float: right;
+  cursor: pointer;
 }
 .upload-btn-wrapper input[type="file"] {
   font-size: 100px;
@@ -9,4 +10,13 @@
   left: 0;
   top: 0;
   opacity: 0;
+  cursor: pointer;
+  &::-webkit-file-upload-button { /* chromes and blink button */
+    cursor: pointer; 
+  }
+}
+.done-upload {
+  display: flex;
+  justify-content: center;
+  color: green;
 }

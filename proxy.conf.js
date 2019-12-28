@@ -1,16 +1,17 @@
 const Agent = require('agentkeepalive');
+require('dotenv').config();
 
 module.exports = {
     '/api': {
-        target: 'http://localhost:3000',
+        target: process.env.TARGET,
         secure: false,
     },
     '/streaming': {
-        target: 'http://localhost:3000',
+        target: process.env.TARGET,
         secure: false,
     },
     '/authenticate': {
-        target: 'http://localhost:3000',
+        target: process.env.TARGET,
         secure: false,
         agent: new Agent({
             maxSockets: 100,
@@ -19,11 +20,6 @@ module.exports = {
             keepAliveMsecs: 100000,
             timeout: 6000000,
             keepAliveTimeout: 90000
-        }),
-        onProxyRes: proxyRes => {
-            let key = 'www-authenticate';
-            proxyRes.headers[key] = proxyRes.headers[key] &&
-                proxyRes.headers[key].split(',');
-        }
+        })
     }
 };

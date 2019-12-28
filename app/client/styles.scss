@@ -1,12 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
   margin: 0;
   padding: 0;
 }
-html, body { height: 100%; }
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-button{
+button {
   cursor: pointer;
 }
 
@@ -14,3 +19,23 @@ app-root {
   display: block;
   height: 100%;
 }
+
+// .mat-tab-body-content::-webkit-scrollbar-track {
+//   border-radius: 10px;
+//   background: rgba(0, 0, 0, 0.1);
+//   border: 1px solid #ccc;
+// }
+
+// .mat-tab-body-content::-webkit-scrollbar-thumb {
+//   border-radius: 10px;
+//   background: linear-gradient(left, #fff, #e4e4e4);
+//   border: 1px solid #aaa;
+// }
+
+// .mat-tab-body-content::-webkit-scrollbar-thumb:hover {
+//   background: #fff;
+// }
+
+// .mat-tab-body-content::-webkit-scrollbar-thumb:active {
+//   background: linear-gradient(left, #22add4, #1e98ba);
+// }

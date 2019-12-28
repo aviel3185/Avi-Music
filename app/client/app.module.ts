@@ -15,20 +15,29 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { SearchPipe } from './pipes/search.pipe';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { UploadSongComponent } from './components/upload-song/upload-song.component';
+import { WinAuthInterceptor } from './httpInterceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SettingsComponent } from './components/settings/settings.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FilterUsersPipe } from './pipes/filter-users.pipe';
+
+
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [AppComponent, PlayingNowComponent, BodyComponent, HeaderComponent,
-    UtilsComponent, SongComponent, SearchPipe, UploadSongComponent],
+    UtilsComponent, SongComponent, SearchPipe, UploadSongComponent, SettingsComponent, FilterUsersPipe],
   imports: [
     SocketIoModule.forRoot(config),
     BrowserModule,
@@ -36,6 +45,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
+    ReactiveFormsModule,
     MatTabsModule,
     MatBottomSheetModule,
     MatFormFieldModule,
@@ -45,10 +55,21 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatBadgeModule,
     FormsModule,
     HttpClientModule,
-    MatSliderModule
+    MatSliderModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    FormsModule
   ],
-  entryComponents: [UploadSongComponent],
-  providers: [],
+  entryComponents: [UploadSongComponent, SettingsComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WinAuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

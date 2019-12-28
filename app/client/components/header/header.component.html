@@ -1,8 +1,13 @@
+<button class="settings" mat-icon-button *ngIf="isAdmin" (click)="openSettings()">
+    <mat-icon>settings</mat-icon>
+</button>
 <mat-tab-group color="accent" backgroundColor="primary">
     <mat-tab label="All Songs">
-        <app-song *ngFor="let song of songs | search:searchQuery" [title]="song" #songs
-            (notifyOnPlay)="playedSong($event)"></app-song>
-        <button >abc</button>
+        <div class="container">
+            <app-song *ngFor="let song of songs | search:searchQuery; index as i" [id]="i" [title]="song" #songs
+                [isAdmin]="isAdmin" (notifyOnPlay)="playedSong($event)"></app-song>
+        </div>
     </mat-tab>
     <mat-tab label="Favorites"></mat-tab>
+
 </mat-tab-group>
